@@ -1,0 +1,22 @@
+.container_fluid
+  = render "users/head_tabs"
+  .row.justify-content-center
+    .col-6
+      .col-12.panel.panel-primary.center-block{ style: "width:50vw" }
+        = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-horizontal") do |f|
+          %h2.text-center.text-primary
+            Login
+          .form-group.text-center
+            = f.label :email, class: "text-primary"
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+          .form-group.text-center
+            = f.label :password, class: "text-primary "
+            = f.password_field :password, autocomplete: "current-password", class: "form-control"
+          - if devise_mapping.rememberable?
+            .form-group
+              = f.check_box :remember_me
+              = f.label :remember_me, class: "text-primary"
+          .form-group.text-center
+            = f.submit "Log in", class: 'btn btn-primary btn-lg '
+          .form-group.text-center
+            = render "devise/shared/links"
