@@ -1,0 +1,9 @@
+%ul.nav.nav-tabs.nav-justified
+  %li.panel.panel-primary= link_to 'トップ', root_path
+  %li.panel.panel-primary= link_to '発注', '/suppliers/:supplier_id/orders'
+  %li.panel.panel-primary= link_to '発注メモ', "/users/:user_id/memos"
+  %li.panel.panel-primary= link_to '仕入先', '/suppliers'
+  %li.panel.panel-primary= link_to '原価計算', '/users/:user_id/calculations'
+  %li.panel.panel-primary= link_to 'カレンダー', '/users/:user_id/carenders'
+  %li.panel.panel-primary= link_to 'ログイン', new_user_session_path
+
