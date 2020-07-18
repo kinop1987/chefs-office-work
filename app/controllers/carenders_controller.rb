@@ -1,7 +1,7 @@
 class CarendersController < ApplicationController
 
   def index
-    @carenders = Carender.all
+    @memos = Memo.all
   end
 
   def new

@@ -1,19 +1,14 @@
 .container
   .row{ style: "margin: 20px"}
     .col.text-center.center-block.panel.panel-primary{ style: "width:50vw" }  
-      %table.table.table-bordered
-        %thread
-          %tr
-            %th.text-center.text-primary 日付
-        %tbody
-        - @memos.each do |memo|
-          %tr
-            %td.text-center.text-primary 
-              = link_to memo.created_at, "/users/#{current_user.id}/memos/#{memo.id}",  method: :get 
+      = month_calendar events: @memos do |date, memos| 
+        .col
+          = date.day
+        - memos.each do |memo|
+          = link_to "メモ", "/users/#{current_user.id}/memos/#{memo.id}"
     .col.text-center.center-block.panel.panel-primary{ style: "width:50vw" }
       .col{ style: "margin: 50px"}
         =link_to "メモを取る", "/users/#{current_user.id}/memos/new", class: "btn-lg btn-primary btn-block" 
       .col{ style: "margin: 50px"}
         = link_to "戻る", root_path, class: "btn-lg btn-primary btn-block" 
       
-    
