@@ -56,7 +56,7 @@ gem 'devise'
 gem 'cancancan'
 gem "haml-rails", ">= 1.0", '<= 2.0.1'
 gem "sass-rails", "~>5.0"
-gem 'bootstrap', '~> 4.5.0'
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem 'simple_calendar', '~> 2.0'

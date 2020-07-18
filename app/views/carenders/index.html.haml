@@ -1,8 +1,9 @@
 .container
   .row
     .col
-      = month_calendar events: @carenders do |date, calendars| 
+      = month_calendar events: @memos do |date, memos| 
         .col
           = date.day
-        - calendars.each do |calendar|
-          = link_to calendar.body, calendar
+        - memos.each do |memo|
+          = link_to "メモ", "/users/#{current_user.id}/memos/#{memo.id}"
+ 
