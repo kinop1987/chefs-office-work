@@ -1,4 +1,4 @@
-window.onload = function() {
+$( function() {
     const speech = new webkitSpeechRecognition();
     speech.lang = 'ja-JP';
 
@@ -13,11 +13,11 @@ window.onload = function() {
          speech.stop();
          if(e.results[0].isFinal){
              var autotext =  e.results[0][0].transcript
-             content.innerHTML +=  autotext ;
+             content.value += autotext + '\n';
           }
      }
 
      speech.onend = () => { 
         speech.start() 
      };
-    };
+    });
