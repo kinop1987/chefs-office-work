@@ -1,5 +1,5 @@
 class SuppliersController < ApplicationController
-
+  before_action :authenticate_user!
   def index
   end
 
@@ -10,11 +10,11 @@ class SuppliersController < ApplicationController
   end
 
   def edit
-  def
+  end
 
   def update
   end
-end
+
 end
 
 
