@@ -1,0 +1,13 @@
+.container
+  .row.justify-content-center{ style: "margin: 5%"}
+    .col.panel.panel-primary{ style: "width: 80vw"}
+      %h2.col.center-block.text-primary.text-center{ style: "margin: 2%"} メモ帳
+      .col.panel.panel-primary.text-primary{ style: "margin: 4%"}
+        .col{ style: "padding: 1%"}
+          = simple_format(@memo.memo)
+    .col.pull-right{ style: "margin: 1%"}
+      = link_to "削除","/users/#{current_user.id}/memos/#{@memo.id}", method:"delete", class: "btn btn-danger btn-lg "
+    .col.pull-right{ style: "margin: 1%"}
+      = link_to "編集","/users/#{current_user.id}/memos/#{@memo.id}/edit" , class: "btn btn-primary btn-lg "
+   
+
