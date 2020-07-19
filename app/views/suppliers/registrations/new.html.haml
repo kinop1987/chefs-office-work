@@ -1,0 +1,22 @@
+.container_fluid
+  .row
+    .col-6{ style: "margin: 20px"}
+      .col-12.panel.panel-primary.center-block{ style: "width:50vw" }
+        = form_with model: @supplier, url: supplier_registration_path, local: true do |f|
+          = render "devise/shared/error_messages", resource: resource
+          %h2.text-center.text-primary
+            SignUp
+          .form-group.text-center
+            = f.label :email, class: "text-primary"
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :password, class: "text-primary "
+            - if @minimum_password_length
+              %em
+                (#{@minimum_password_length} characters minimum)
+            = f.password_field :password, autocomplete: "new-password", class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :password_confirmation, class: "text-primary "
+            = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.submit "Sign up", class: 'btn btn-primary btn-lg '
