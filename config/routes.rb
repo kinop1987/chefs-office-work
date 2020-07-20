@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   end
 
   resources :suppliers do
-    resources :orders
+    resources :orders_tables do
+      resources :orders
+    end 
   end
 
 
