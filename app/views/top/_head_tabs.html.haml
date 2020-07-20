@@ -7,6 +7,9 @@
     %li.panel.panel-primary= link_to '原価計算', "/users/#{current_user.id}/calculations"
     %li.panel.panel-primary= link_to 'カレンダー', "/users/#{current_user.id}/carenders"
     %li.panel.panel-primary=link_to "ログアウト", destroy_user_session_path, method: :delete
+  - if supplier_signed_in?
+    %li.panel.panel-primary= link_to '発注表', "/suppliers/#{current_supplier.id}/orders_tables"
+    %li.panel.panel-primary=link_to "ログアウト", destroy_supplier_session_path, method: :delete
   - else
     %li.panel.panel-primary= link_to 'ログイン', new_user_session_path
     %li.panel.panel-primary= link_to "新規登録", new_user_registration_path

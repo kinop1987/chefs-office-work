@@ -1,0 +1,18 @@
+.container
+  .row.justify-content-center{ style: "margin: 5%"}
+    .col.panel.panel-primary{ style: "width: 80vw"}
+      = form_with(model: [@supplier,@orders_table], local: true )do |f|
+        = f.fields_for :orders do |o|
+          .form-group
+            = o.label :商品名
+            = o.text_field :name
+          .form-group
+            = o.label :価格
+            = o.number_field :price
+          .form-group
+            = o.label :単位
+            = o.text_field :unit
+        .form-group.text-center
+          = f.submit "登録", class: 'btn btn-primary btn-lg '
+ 
+

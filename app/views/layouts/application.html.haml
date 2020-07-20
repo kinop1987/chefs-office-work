@@ -9,6 +9,14 @@
     = javascript_include_tag 'application'
   %body
     = render 'top/head_tabs'
+    - if user_signed_in?
+      .col{ style: "margin: 1%"}
+        %h4.text-right.text-info
+          = "#{current_user.email}：様"
+    - if supplier_signed_in?
+      .col{ style: "margin: 1%"}
+        %h4.text-right.text-info
+          = "#{current_supplier.email}：様"
     = yield
     
     
