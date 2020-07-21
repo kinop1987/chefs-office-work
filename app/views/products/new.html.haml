@@ -1,0 +1,24 @@
+.container
+  .row
+    .col
+      = form_with model: [@supplier,@form], url:supplier_products_path, method: :post do |fb|
+        %table.table
+          %thread
+            %tr
+              %th{ style: "width: 60px"} 登録
+              %th 商品名
+              %th 販売価格
+              %th 発注単位
+          %tbody.bulk-registration-form
+          = fb.fields_for :products do |f|
+            %tr.item
+              %td.text-center
+                = f.check_box :register, class: 'top10 registration-checkbox'
+              %td
+                = f.text_field :name, class: 'form-control'
+              %td
+                = f.text_field :price, class: 'form-control'
+              %td
+                = f.text_field :unit, class: 'form-control'
+        .text-center
+          = fb.submit "一括登録", class: "btn btn-primary"

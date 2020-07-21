@@ -1,4 +1,3 @@
-class Order < ApplicationRecord
-  belongs_to :orders_table
+class Order < ApplicationRecord::Base
   validates :name, presence: true
 end
