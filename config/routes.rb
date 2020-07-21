@@ -18,11 +18,8 @@ Rails.application.routes.draw do
   end
 
   resources :suppliers do
-    resources :orders_tables do
-      resources :orders
-    end 
+   resources :products
   end
-
 
 
 end
