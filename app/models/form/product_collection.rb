@@ -1,30 +1,22 @@
 class Form::ProductCollection < Form::Base
-  FORM＿COUNT = 5
+  FORM_COUNT = 5
   attr_accessor :products
 
   def initialize(attributes = {})
     super attributes
-    self.products = FORM＿COUNT.times.map { Form::Product.new } unless products.present?
+    self.products = FORM_COUNT.times.map { Product.new() } unless self.products.present?
   end
-
+  
   def products_attributes=(attributes)
-    self.products = attributes.map do |_, product_attributes|
-      Form::Product.new(product_attributes).tap { |v| v.availability = false }
-    end
-  end
-
-  def valid?
-    valid_products = target_products.map(&:valid?).all?
-    super && valid_products
+    self.products = attributes.map { |_, v| Product.new(v) }
   end
 
   def save
-    return false unless valid?
-    Product.transaction { target_products.each(&:save!) }
-    true
-  end
-
-  def target_products
-    self.products.select { |v| cast_value(v.register) }
+    Product.transaction do
+      self.products.map(&:save!)
+    end
+      return true
+    rescue => e
+      return false
   end
 end

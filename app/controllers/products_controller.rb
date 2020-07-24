@@ -1,29 +1,51 @@
 class ProductsController < ApplicationController
   before_action :require_login_supplier
+  before_action :set_product, only: [:edit, :update, :destroy]
+
 
   def index
+      @supplier = Supplier.find(params[:supplier_id])
+      @products = @supplier.products
+
   end
 
   def new
+    @supplier_id = current_supplier.id
     @form = Form::ProductCollection.new
   end
+
+  
 
   def create
     @form = Form::ProductCollection.new(product_collection_params)
     if @form.save
-      redirect_to root_path, notice: "#{@form.target_products.size}件の商品を登録しました。"
+      redirect_to supplier_products_path, notice: "商品を登録しました。"
     else
-      render root_path, notice: "商品の登録に失敗しました"
-
+      render :new 
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @product.update(update_product_params)
+      redirect_to supplier_products_path
+    else
+      render action: :edit
+    end 
+  end
+
+  def destroy
+    @product.destroy
+    redirect_to supplier_products_path
+  end
+  
   private
 
   def product_collection_params
     params
-      .require(:form_product_collection)
-      .permit(products_attributes: Form::Product::REGISTRABLE_ATTRIBUTES).merge(supplier_id: current_supplier.id)
+      .require(:form_product_collection).permit(products_attributes: [:name, :price, :unit,:availability, :supplier_id])
   end
 
   def require_login_supplier
@@ -36,4 +58,13 @@ class ProductsController < ApplicationController
   def logged_in_supplier?
     !current_supplier.nil?
   end
+
+  def set_product
+    @product = Product.find_by(id: params[:id])
+  end
+
+  def update_product_params
+    params.require(:product).permit(:name, :price, :unit)
+  end
+
 end

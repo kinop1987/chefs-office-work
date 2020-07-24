@@ -15,11 +15,13 @@ Rails.application.routes.draw do
     resources :memos 
     resources :calculations
     resources :carenders
+    get "orders", to: "orders#index"
+    get "orders/new/:supplier_id", to: "orders#new"
+    post "orders", to: "orders#create"
   end
 
   resources :suppliers do
    resources :products
   end
-
 
 end
