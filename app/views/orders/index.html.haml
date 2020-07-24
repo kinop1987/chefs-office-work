@@ -2,9 +2,8 @@
   .row{ style: "margin: 2%"}
     .col.panel.panel-primary.center-block{style: "width: 50%"}
       %ul.nav.nav-tabs.nav-stacked.text-center.text-primary{ style: "padding:2%"}
-        %li
-          %h3 仕入先一覧
-        %li 八百屋
-        %li 肉屋
-        %li 魚屋
-        %li 酒屋
+        取引先一覧
+        - @suppliers.each do |supplier|
+          %li
+            = link_to supplier.email, "/users/#{current_user.id}/orders/new/#{supplier.id}"
+      

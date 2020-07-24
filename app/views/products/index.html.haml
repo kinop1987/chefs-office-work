@@ -1,4 +1,25 @@
 .container
   .row
     .col
-      =link_to "商品登録", new_supplier_product_path
+      %table.table
+        %thread
+          %tr
+            %th 商品名
+            %th 販売価格(円)
+            %th 発注単位
+          %tbody.bulk-registration-form
+          - @products.each do |product|
+            %tr.item
+              %td
+                = product.name
+              %td
+                = product.price
+              %td
+                = product.unit
+              %td
+                = link_to "編集", edit_supplier_product_path(id: product.id), class:"btn btn-info"
+              %td
+                = link_to "削除", supplier_product_path(id: product.id), method: "delete",class:"btn btn-danger"
+    .col
+      =link_to "新規商品登録", new_supplier_product_path, class: "btn btn-primary"
+      
