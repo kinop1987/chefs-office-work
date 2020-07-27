@@ -5,26 +5,31 @@
         %p 仕入先
       .col.text-primary.text-center
         = @supplier.email
-      = form_with model:[@user,@order], url: user_orders_path, method: :post do |form|
-        %table.table.table-bordered{ style: "margin:1%"}
-          %thread
-            %tr
-              %th.text-center.text-primary 商品名
-              %th.text-center.text-primary 単価（円）
-              %th.text-center.text-primary 数量
-              %th.text-center.text-primary 単位   
-          %tbody
-            = form.fields_for :order_details do |f|
-              - @products.each do |product|
-                %tr
-                  %td.text-center.text-primary
-                    = product.name
-                  %td.text-center.text-primary{ style: "width: 10%"} 
-                    = f.text_field :unit_price, value: product.price, readonly: true
-                  %td.text-center.text-primary{ style: "width:10%"}
-                    = f.text_field :quantity, class: "form-control"
-                  %td.text-center.text-primary{ style: "width: 20%"} 
-                    = product.unit
-                    = f.hidden_field :product_id, value: product.id
-        = form.submit "確認"
+      .col
+        = form_with model:[@user, @order], url: "/users/#{current_user.id}/orders/#{@supplier.id}", method: :post do |form|
+          = form.hidden_field :supplier_id, value: @supplier.id
+          = form.hidden_field :user_id, value: current_user.id
+          %table.table.table-bordered{ style: "margin:1%"}
+            %thread
+              %tr
+                %th.text-center.text-primary 商品名
+                %th.text-center.text-primary 単価（円）
+                %th.text-center.text-primary 数量
+                %th.text-center.text-primary 単位   
+            %tbody
+              - @order_details.each do |order_detail| 
+                = fields_for "order_details[]", order_detail, index: nil  do |f|
+                  - @products.each do |product|
+                    %tr
+                      %td.text-center.text-primary
+                        = product.name
+                      %td.text-center.text-primary{ style: "width: 10%"} 
+                        = f.text_field :unit_price, value: product.price, readonly: true
+                      %td.text-center.text-primary{ style: "width:10%"}
+                        = f.text_field :quantity, class: "form-control"
+                      %td.text-center.text-primary{ style: "width: 20%"} 
+                        = product.unit
+                        = f.hidden_field :product_id, value: product.id
+                        = f.hidden_field :order_id, value: @order.id
+          = form.submit "確認"
           
