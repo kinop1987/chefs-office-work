@@ -1,9 +1,11 @@
 class OrderDetail < ApplicationRecord
-  #belongs_to :order
-  #belongs_to :product
+  belongs_to :order
+
 
   before_save do
-    self.price = unit_price * quantity
+    self.price = self.unit_price * self.quantity
   end
+
+  
 
 end

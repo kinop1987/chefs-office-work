@@ -1,7 +1,7 @@
 %ul.nav.nav-tabs.nav-justified
   %li.panel.panel-primary= link_to 'トップ', root_path
   - if user_signed_in? 
-    %li.panel.panel-primary= link_to '発注', user_orders_path(current_user.id)
+    %li.panel.panel-primary= link_to '発注', "/users/#{current_user.id}/orders"
     %li.panel.panel-primary= link_to '発注メモ', "/users/#{current_user.id}/memos"
     %li.panel.panel-primary= link_to '仕入先', '/suppliers'
     %li.panel.panel-primary= link_to '原価計算', "/users/#{current_user.id}/calculations"
