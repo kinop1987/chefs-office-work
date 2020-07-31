@@ -1,17 +1,21 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "suppliers/shared/links"
+.container_fluid
+  .row
+    .col-6{ style: "margin: 20px"}
+      .col-12.panel.panel-primary.center-block{ style: "width:50vw" }
+        = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-horizontal") do |f|
+          %h2.text-center.text-primary
+            企業ログインページ
+          .form-group.text-center
+            = f.label :email, class: "text-primary"
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :password, class: "text-primary "
+            = f.password_field :password, autocomplete: "current-password", class: "form-control center-block", style: "width: 50%"
+          - if devise_mapping.rememberable?
+            .form-group.text-center
+              = f.check_box :remember_me
+              = f.label :remember_me, class: "text-primary "
+          .form-group.text-center
+            = f.submit "ログイン", class: 'btn btn-primary btn-lg '
+          .form-group.text-center
+            = render "suppliers/shared/links"

@@ -1,0 +1,10 @@
+.container
+  .row
+    .col
+      .panel.panel-primary
+        .panel-heading 
+          %h2.text-center 未受領伝票一覧
+        - @confirm_orders.each do |order|
+          .panel.panel-body
+            %h4.text-center
+              = link_to "#{order.supplier.email}：#{order.delivery_date}", "/users/#{current_user.id}/receipts/#{order.id}"

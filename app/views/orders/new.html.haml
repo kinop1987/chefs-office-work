@@ -1,14 +1,18 @@
 .container
   .row
     .col
-      .col.text-primary.text-center
-        %p 仕入先
-      .col.text-primary.text-center
-        = @supplier.email
       .col
-        = form_with model:[@user, @order], url: "/users/#{current_user.id}/orders/#{@supplier.id}", method: :post do |form|
+        %table.table
+          %tr
+            %th.text-primary.text-right 取引先：
+            %th.text-success=@supplier.email
+      .col
+        = form_with model:[@user, @order], url: "/users/#{current_user.id}/orders/#{@supplier.id}/confirm", local:true do |form|
           = form.hidden_field :supplier_id, value: @supplier.id
           = form.hidden_field :user_id, value: current_user.id
+          .col.text-right
+            = form.label :納品日：, class: "text-primary "
+            = form.date_field :delivery_date, value: Time.now.strftime("%Y-%m-%d")
           %table.table.table-bordered{ style: "margin:1%"}
             %thread
               %tr
@@ -24,12 +28,14 @@
                       %td.text-center.text-primary
                         = product.name
                       %td.text-center.text-primary{ style: "width: 10%"} 
-                        = f.text_field :unit_price, value: product.price, readonly: true
+                        = product.price
                       %td.text-center.text-primary{ style: "width:10%"}
                         = f.text_field :quantity, class: "form-control"
                       %td.text-center.text-primary{ style: "width: 20%"} 
                         = product.unit
                         = f.hidden_field :product_id, value: product.id
                         = f.hidden_field :order_id, value: @order.id
-          = form.submit "確認"
+                        = f.hidden_field :unit_price, value: product.price
+          .col.pull-right
+            = form.submit "確認",class: "btn btn-info "
           

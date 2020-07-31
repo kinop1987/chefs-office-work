@@ -1,8 +1,32 @@
 .container
   .row
     .col
-      .col 今月の売上：
-      .col 先月の棚卸金額：
-      .col 今月の棚卸金額：
-      .col 今月の仕入金額：
-      .col 今月の原価率：
+      .panel.panel-primary.center-block{ style: "width: 60%"}
+        .panel-heading.text-center
+          %h2 原価計算
+          = form_with model:[@user, @calculation], local: true do |form|
+            .panel-body{ style: "font-size: 180%"}
+              .col.form-group
+                = form.label :今月の売上高：
+                = form.text_field :income, class: "text-success text-right", id: "income", placeholder: 0
+                %span 円
+              .col.form-group
+                = form.label :前月の棚卸額：
+                = form.text_field :last_invent, class: "text-success text-right", id: "last_invent", placeholder:0
+                %span 円
+              .col.form-group
+                = form.label :今月の棚卸額：
+                = form.text_field :this_invent, class: "text-success text-right", id:"this_invent", placeholder:0
+                %span 円
+              .col.form-group
+                = form.label :今月の原価額：
+                = form.text_field :cost, class: "text-success text-right", value: @cost,id:"cost"
+                %span 円
+            .panel-footer{ style: "font-size: 180%"}
+              .col.form-group.text-primary
+                = form.label :今月の原価率：
+                = form.text_field :cost_rate, id: "cost_rate", class: "text-right"
+                %span ％
+            .col
+              = form.label "計算する" , class: "btn btn-danger", id: "calculation"
+                

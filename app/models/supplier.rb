@@ -5,6 +5,5 @@ class Supplier < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :orders
   has_many :products
-  has_many :user_suppliers
-  has_many :users, through: :user_suppliers
+  has_many :users, through: :orders
 end

@@ -1,0 +1,38 @@
+.container
+  .row
+    .col
+      .col
+        %table.table
+          %tr.pull-right
+            %th.text-primary.text-right 取引先：
+            %th.text-success= @order.user.email
+            %th.text-primary.text-right 発注日
+            %th.text-success= @order.created_at
+      .col
+        = form_with model:[@supplier, @confirm_order], url: "/suppliers/#{current_supplier.id}/confirm_orders/#{@order.id}/confirm", local:true do |form|
+          .col.pull-right{ style: "margin:1%"}
+            = form.label :納品日：, class: "text-primary "
+            = form.date_field :delivery_date, value: Time.now.strftime("%Y-%m-%d")
+          %table.table.table-bordered{ style: "margin:1%"}
+            %thread
+              %tr
+                %th.text-center.text-primary 商品名
+                %th.text-center.text-primary 単価（円）
+                %th.text-center.text-primary 数量
+                %th.text-center.text-primary 単位   
+            %tbody
+              - @confirm_order_details.each do |confirm| 
+                = fields_for "confirm_order_details[]", confirm, index: nil  do |f|
+                  - @order_details.each do |order_detail|
+                    %tr
+                      %td.text-center.text-primary
+                        = f.text_field :product_name, value: order_detail.product.name
+                      %td.text-center.text-primary{ style: "width: 10%"} 
+                        = f.text_field :unit_price, value: order_detail.unit_price
+                      %td.text-center.text-primary{ style: "width:10%"}
+                        = f.text_field :quantity, class: "form-control",  value:order_detail.quantity
+                      %td.text-center.text-primary{ style: "width: 20%"} 
+                        = f.text_field :product_unit, value: order_detail.product.unit
+                        = f.hidden_field :confirm_order_id, value: @confirm_order.id
+          .col.pull-right
+            = form.submit "確認",class: "btn btn-info "

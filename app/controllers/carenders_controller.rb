@@ -1,7 +1,8 @@
 class CarendersController < ApplicationController
 
   def index
-    @memos = Memo.all
+    @user = User.find(params[:user_id])
+    @memos = @user.memos
   end
 
   def new

@@ -1,0 +1,21 @@
+.container_fluid
+  .row
+    .col-6{ style: "margin: 20px"}
+      .col-12.panel.panel-primary.center-block{ style: "width:50vw" }
+        = form_with model: @user ,local: true do |f|
+          %h2.text-center.text-primary
+            ユーザー情報
+          .form-group.text-center
+            = f.label :名前, class: "text-primary"
+            = f.text_field :name, class: "form-control center-block", style: "width: 50%", value: @user.name
+          .form-group.text-center
+            = f.label :メールアドレス, class: "text-primary"
+            = f.email_field :email, class: "form-control center-block", style: "width: 50%", value: @user.email
+          .form-group.text-center
+            = f.label :電話番号, class: "text-primary"
+            = f.text_field :telephone, class: "form-control center-block", style: "width: 50%", value: @user.telephone
+          .form-group.text-center
+            = f.label :住所, class: "text-primary", value: @user.address
+            = f.text_field :address ,class: "form-control center-block", style: "width: 50%",value: @user.address
+          .form-group.text-center
+            = f.submit "編集", class: 'btn btn-primary btn-lg '

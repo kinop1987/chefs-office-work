@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   def create
     @form = Form::ProductCollection.new(product_collection_params)
     if @form.save
-      redirect_to supplier_products_path, notice: "商品を登録しました。"
+      redirect_to supplier_products_path, success: "商品を登録しました。"
     else
       render :new 
     end
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(update_product_params)
-      redirect_to supplier_products_path
+      redirect_to supplier_products_path, info: "商品を編集しました"
     else
       render action: :edit
     end 
@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    redirect_to supplier_products_path
+    redirect_to supplier_products_path, danger: "商品を削除しました"
   end
   
   private
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
   def require_login_supplier
     unless logged_in_supplier?
-      flash[:danger] = "ログインしてください"
+      danger: "ログインしてください"
       redirect_to  new_supplier_session_path
     end
   end

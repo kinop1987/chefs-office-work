@@ -1,0 +1,50 @@
+.container
+  .row
+    .col
+      .col.panel.panel-primary
+        %h3.text-center.text-primary 注文確認画面
+        %table.table
+          %tr.pull-right
+            %th.text-primary.text-right 取引先：
+            %th.text-success= @supplier.email       
+      .col
+        = form_with model:[@user, @order], url: "/users/#{current_user.id}/orders/#{@supplier.id}", local:true do |form|
+          = form.hidden_field :supplier_id, value: @supplier.id
+          = form.hidden_field :user_id, value: current_user.id
+          .col.text-right
+            = form.label :納品日：, class: "text-primary "
+            = form.date_field :delivery_date, value: @order.delivery_date
+          %table.table.table-bordered{ style: "margin:1%"}
+            %thread
+              %tr
+                %th.text-center.text-primary 商品名
+                %th.text-center.text-primary 単価
+                %th.text-center.text-primary 数量
+                %th.text-center.text-primary 単位 
+                %th.text-center.text-primary 小計
+            %tbody
+              - @order_details.each do |order_detail| 
+                = fields_for "order_details[]", order_detail, index: nil  do |f|
+                  %tr
+                    %td.text-center.text-primary
+                      = order_detail.product.name
+                    %td.text-center.text-primary{ style: "width: 10%"} 
+                      = "#{order_detail.unit_price}円"
+                    %td.text-center.text-primary{ style: "width:10%"}
+                      = f.text_field :quantity, class: "form-control"
+                    %td.text-center.text-primary{ style: "width: 20%"} 
+                      = order_detail.product.unit
+                    %td.text-center.text-primary{ style: "width:10%"} 
+                      = "#{order_detail.calculate_order_detail_price}円"
+                      = f.hidden_field :product_id, value: order_detail.product_id
+                      = f.hidden_field :order_id, value: @order.id
+                      = f.hidden_field :unit_price, value: order_detail.unit_price
+          .col.pull-right
+            = form.submit "注文確定",class: "btn btn-info "
+          %table.table{ style: "margin:2%"}
+            %tr.pull-right{ style: "font-size: 20px"}
+              %th.text-primary.text-right 合計金額：
+              %th.text-primary
+                = "#{@order.calculate_order_quantity}円" 
+
+
