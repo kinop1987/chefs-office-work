@@ -5,7 +5,7 @@ class MemosController < ApplicationController
   end
 
   def show
-    @memo = Memo.find_by(id: params[:id])
+    @memo = Memo.find(params[:id])
   end
 
   def new
@@ -15,7 +15,7 @@ class MemosController < ApplicationController
 
   def create
     @memo = Memo.create(memo_params)
-    redirect_to user_memos_path
+    redirect_to user_memos_path, success: "メモを登録しました"
   end
 
   def edit
@@ -26,14 +26,13 @@ class MemosController < ApplicationController
   def update
     memo = Memo.find(params[:id])
     memo.update(memo_params)
-    redirect_to user_memos_path
+    redirect_to user_memos_path, info: "メモを編集しました"
   end
 
   def destroy
     memo = Memo.find(params[:id])
     memo.destroy
-    flash[:succes] = 'メッサージを削除しました。'
-    redirect_to user_memos_path
+    redirect_to user_memos_path, danger: "メモを削除しました"
   end
 
   private

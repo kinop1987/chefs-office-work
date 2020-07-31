@@ -5,5 +5,4 @@ class Product < ActiveRecord::Base
   #validates :availability, inclusion: { in: [true, false] }
   belongs_to :supplier
 
-
 end

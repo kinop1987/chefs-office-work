@@ -1,33 +1,33 @@
 class OrdersController < ApplicationController
+  before_action :set_up_supplier ,only: [:new,:create,:confirm]
+  before_action :set_up_user, only: [:index,:new,:confirm]
+  before_action :create_params_order , only: [:create, :confirm]
 
   def index
     @suppliers = Supplier.all
-    @user = User.find(params[:user_id])
   end
 
   def new
-    @supplier = Supplier.find(params[:supplier_id])
-    @products = @supplier.products
-    @user = User.find(params[:user_id])
     @order = Order.new
     @order.order_details.build
     @order_details = @order.order_details
-    
-
   end
 
   def create
-    @supplier = Supplier.find(params[:supplier_id])
-    @products = @supplier.products
-    @order = Order.new(order_params)
-    @order.order_details.new(order_details_params)
     if @order.save
-      flash[:success] = '注文を完了しました！'
-      redirect_to user_orders_path
+      redirect_to user_orders_path, success: "発注を完了しました"
     else
       render :new
     end
   end
+
+  def confirm
+  end
+
+  def show
+    @order = Order.find_by(id: params[:order_id])
+  end
+
 
   private
 
@@ -35,7 +35,8 @@ class OrdersController < ApplicationController
     params
       .require(:order).permit(:user_id,
                               :supplier_id,
-                              :quantity)
+                              :quantity,
+                              :delivery_date)
   end
 
   def order_details_params
@@ -44,4 +45,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def set_up_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_up_supplier
+    @supplier = Supplier.find(params[:supplier_id])
+    @products = @supplier.products
+  end
+
+  def create_params_order
+    @order = Order.new(order_params)
+    @order_details = @order.order_details.new(order_details_params)
+  end
 end

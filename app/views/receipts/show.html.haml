@@ -1,0 +1,43 @@
+.container
+  .row
+    .col
+      .col
+        %table.table
+          %tr.pull-right
+            %th.text-primary.text-right 取引先：
+            %th.text-success= @confirm_order.supplier.email
+      .col
+        = form_with model:[@user, @receipt], url: "/users/#{current_user.id}/receipts/#{@confirm_order.id}", local:true do |form|
+          .col.pull-right{ style: "margin:1%"}
+            = form.label :納品日：, class: "text-primary "
+            = form.date_field :delivery_time, value: @confirm_order.delivery_date, readonly:true
+            = form.hidden_field :total_price, value: @confirm_order.total_price
+            = form.hidden_field :confirm_order_id, value: @confirm_order.id
+          %table.table.table-bordered{ style: "margin:1%"}
+            %thread
+              %tr
+                %th.text-center.text-primary 商品名
+                %th.text-center.text-primary 単価（円）
+                %th.text-center.text-primary 数量
+                %th.text-center.text-primary 単位
+                %th.text-center.text-primary 小計   
+            %tbody
+              - @confirm_order_details.each do |confirm| 
+                %tr
+                  %td.text-center.text-primary
+                    = confirm.product_name
+                  %td.text-center.text-primary{ style: "width: 10%"} 
+                    = confirm.unit_price
+                  %td.text-center.text-primary{ style: "width:10%"}
+                    = confirm.quantity
+                  %td.text-center.text-primary{ style: "width: 20%"} 
+                    = confirm.product_unit
+                  %th.text-center.text-primary{ style: "width: 10%"}
+                    = "#{confirm.total_price}円"
+            %table.table{ style: "margin: 2%"}
+              %tr.pull-right{ style: "font-size: 20px"}
+                %th.text-primary.text-right 合計金額：
+                %th.text-primary
+                  = "#{@confirm_order.total_price}円" 
+          .col.pull-right
+            = form.submit "受領", class: "btn btn-primary "

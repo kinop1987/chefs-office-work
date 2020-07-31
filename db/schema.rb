@@ -10,12 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_064626) do
+ActiveRecord::Schema.define(version: 2020_07_31_020914) do
 
-  create_table "calculatios", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "calculations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "income"
+    t.integer "last_invent"
+    t.integer "this_invent"
+    t.integer "cost"
+    t.integer "cost_rate"
   end
 
   create_table "carenders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -23,6 +28,27 @@ ActiveRecord::Schema.define(version: 2020_07_27_064626) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "start_time"
+  end
+
+  create_table "confirm_order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "confirm_order_id", null: false
+    t.integer "unit_price", null: false
+    t.integer "quantity", null: false
+    t.integer "total_price", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "product_name", null: false
+    t.string "product_unit", null: false
+  end
+
+  create_table "confirm_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "supplier_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "total_price", null: false
+    t.date "delivery_date", null: false
   end
 
   create_table "memos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -49,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_064626) do
     t.integer "user_id", null: false
     t.integer "supplier_id", null: false
     t.integer "quantity"
+    t.date "delivery_date", null: false
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -59,6 +86,15 @@ ActiveRecord::Schema.define(version: 2020_07_27_064626) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "availability", default: false, null: false
     t.integer "supplier_id", null: false
+  end
+
+  create_table "receipts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "confirm_order_id", null: false
+    t.integer "total_price", null: false
+    t.date "delivery_time", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -93,6 +129,9 @@ ActiveRecord::Schema.define(version: 2020_07_27_064626) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
+    t.string "name"
+    t.string "telephone"
+    t.string "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

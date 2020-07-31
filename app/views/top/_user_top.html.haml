@@ -1,0 +1,63 @@
+.container
+  .row
+    .col
+      .col
+        %h2.text-center.text-info.col-6.panel.panel-primary 本日の業務
+        %p.col-6.text-success.text-right
+          = @date_today
+      .panel.panel-primary
+        .panel-heading.text-center
+          %h2 取引金額
+        .panel-body
+          .breadcrumb.text-center
+            %li.pull-left 昨日の金額
+            %li.pull-left.text-success
+              = "#{@yesterday_total_receipts}円"
+            %li 今日の金額
+            %li.text-primary
+              = "#{@today_total_receipts}円"
+            %li.pull-right.text-danger
+              = "#{@this_month_receipts}円"
+            %li.pull-right 今月の合計金額
+        .panel.panel-footer
+          %p.text-right
+            = link_to "原価計算", user_calculations_path(current_user.id), class: "btn btn-primary"
+      .panel.panel-primary
+        .panel-heading.text-center
+          %h2 受領画面
+        .panel-body
+          %h4.text-center 商品を検品後、伝票を受領してください
+        .panel-footer
+          %p.text-right
+            = link_to "受領リスト", user_receipts_path(current_user.id), class: "btn btn-primary "
+      .panel.panel-primary
+        .panel-heading.text-center
+          %h2 ユーザー情報
+        .panel-body
+          .input-group
+            %span.input-group-addon ユーザー名：  
+            %p.form-control
+              = @user.name 
+          .input-group
+            %span.input-group-addon.text-justify メールアドレス：
+            %p.form-control
+              = @user.email
+          .input-group
+            %span.input-group-addon 電  話  番  号：
+            %p.form-control
+              = @user.telephone
+          .input-group
+            %span.input-group-addon         住  所：
+            %p.form-control
+              = @user.address
+        .panel-footer.text-right
+          = link_to "編集",edit_user_path(current_user.id), class:"btn btn-primary"
+        
+
+
+
+            
+
+
+
+

@@ -1,0 +1,12 @@
+.container
+  .row
+    .col
+      .col.text-center
+        %h2.text-primary 受注一覧
+        - @orders.each do |order|
+          %h4.text-info.center-block{ style: "width: 50%"}
+            %table.table
+              %thread
+                %th
+                  %tr
+                    = link_to  "#{order.user.email}/#{order.delivery_date}", "/suppliers/#{current_supplier.id}/confirm_orders/show/#{order.id}"
