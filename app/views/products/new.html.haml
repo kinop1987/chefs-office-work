@@ -1,24 +1,28 @@
 .container
   .row
     .col
-      = form_with model: [@supplier,@form], url:supplier_products_path, method: :post do |fb|
-        %table.table
+      = form_with model: [@supplier,@form], url:supplier_products_path, method: :post, local:true do |fb|
+        %table.table.text-primary
           %thread
             %tr
               %th{ style: "width: 60px"} 登録
               %th 商品名
               %th 販売価格
               %th 発注単位
-          %tbody.bulk-registration-form
+          %tbody.table-bordered
           = fb.fields_for :products do |f|
-            %tr.item
+            %tr{ id: "trForm"}
               %td.text-center
-                = f.check_box :register, class: 'top10 registration-checkbox'
+                = f.check_box :availability, class: 'checkbox'
               %td
                 = f.text_field :name, class: 'form-control'
               %td
                 = f.text_field :price, class: 'form-control'
               %td
                 = f.text_field :unit, class: 'form-control'
+                = f.hidden_field :supplier_id, value: current_supplier.id
+        %span.btn.btn-success{ id: "addProduct"}
+          登録欄追加
         .text-center
-          = fb.submit "一括登録", class: "btn btn-primary"
+          = fb.submit "一括登録", class: "btn btn-primary "
+          = link_to "戻る", supplier_products_path(current_supplier.id), class: "btn btn-danger"

@@ -5,14 +5,14 @@
         %table.table
           %tr.pull-right
             %th.text-primary.text-right 取引先：
-            %th.text-success= @order.user.email
+            %th.text-success= @order.user.name
             %th.text-primary.text-right 発注日
-            %th.text-success= @order.created_at
+            %th.text-success= @order.created_at.strftime("%Y-%m-%d %H:%M:%S")
       .col
         = form_with model:[@supplier, @confirm_order], url: "/suppliers/#{current_supplier.id}/confirm_orders/#{@order.id}/confirm", local:true do |form|
           .col.pull-right{ style: "margin:1%"}
             = form.label :納品日：, class: "text-primary "
-            = form.date_field :delivery_date, value: Time.now.strftime("%Y-%m-%d")
+            = form.date_field :delivery_date, value: @order.delivery_date
           %table.table.table-bordered{ style: "margin:1%"}
             %thread
               %tr
@@ -33,6 +33,5 @@
                         = f.text_field :quantity, class: "form-control",  value:order_detail.quantity
                       %td.text-center.text-primary{ style: "width: 20%"} 
                         = f.text_field :product_unit, value: order_detail.product.unit
-                        = f.hidden_field :confirm_order_id, value: @confirm_order.id
           .col.pull-right
             = form.submit "確認",class: "btn btn-info "

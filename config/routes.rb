@@ -12,15 +12,18 @@ Rails.application.routes.draw do
   root to: "top#index"
 
   resources :users do
+    get "/suppliers", to: "users#suppliers"
     resources :memos 
     resources :calculations
-    resources :carenders
+    resources :calendars
     get "orders", to: "orders#index"
     get "orders/new/:supplier_id", to: "orders#new"
     post "orders/:supplier_id", to: "orders#create" 
     post "orders/:supplier_id/confirm", to: "orders#confirm"
     get "orders/:order_id/show",to: "orders#show"
+    get "orders/group/:delivery_date", to: "orders#group"
     get "receipts", to: "receipts#index"
+    get "receipts/group/:delivery_date", to: "receipts#group"
     get "receipts/:confirm_order_id", to: "receipts#show"
     post "receipts/:confirm_order_id", to: "receipts#create"
 
@@ -33,5 +36,7 @@ Rails.application.routes.draw do
    post "confirm_orders/:order_id/confirm", to: "confirm_orders#confirm"
    post "confirm_orders/:order_id", to: "confirm_orders#create"
   end
+
+  resources :notifications, only: :index
 
 end

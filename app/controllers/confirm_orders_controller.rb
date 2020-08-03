@@ -1,10 +1,11 @@
 class ConfirmOrdersController < ApplicationController
-  before_action :set_up_supplier, only: [:show, :confirm]
+  before_action :set_up_supplier, only: [:show, :confirm, :index]
   before_action :receive_order, only: [:show, :confirm, :create]
   before_action :create_params_order, only: [:create, :confirm]
 
   def index
-    @orders = Order.all.order(created_at: "DESC")
+    @notifications = @supplier.notifications.where(confirm_order_id: nil).order(created_at: "DESC")
+    @count = @notifications.count
   end
 
   def show
@@ -14,12 +15,13 @@ class ConfirmOrdersController < ApplicationController
   end
 
   def create
-    @orders = Order.all.order(created_at: "DESC")
     if @confirm_order.save
+      @confirm_order.create_confirm_notification_by(current_supplier)
+      @order.notification.destroy
       redirect_to supplier_confirm_orders_path, success: "注文を確認しました"
-    else
-      render :index, danger: "確認に失敗しました"
+
     end
+
   end
 
   def confirm
@@ -28,7 +30,7 @@ class ConfirmOrdersController < ApplicationController
   private
   
   def set_up_supplier
-    @supplier = Supplier.find(params[:supplier_id])
+    @supplier = Supplier.find_by(id: current_supplier.id)
   end
 
 

@@ -16,7 +16,7 @@
     - if supplier_signed_in?
       .col{ style: "margin: 1%"}
         %h4.text-right.text-info
-          = "#{current_supplier.email}：様"
+          = "#{current_supplier.name}：様"
     - flash.each do |key, value|
       - key = "info" if key == "notice"
       - key = "danger"  if key == "alert"

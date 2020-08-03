@@ -8,5 +8,9 @@ class User < ApplicationRecord
   has_many :suppliers, through: :confirm_orders
   has_many :receipts
   has_one :calculation
+  has_many :notifications, dependent: :destroy
 
+  def start_time
+    self.confirm_orders.delivery_time
+  end
 end

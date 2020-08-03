@@ -1,0 +1,33 @@
+.container
+  .row
+    .col
+      .col
+        - if @count == 0
+          .col.text-center.text-danger
+            %h3 この日の伝票はありません
+        -else
+          - @receipts.each do |receipt|
+            %table.table.table-bordered{ style: "margin:1%"}
+              %thread
+                %tr
+                  %th.text-center.text-primary 取引先
+                  %th.text-center.text-primary 作成日時
+                  %th.text-center.text-primary 納品日
+                  %th.text-center.text-primary 発注金額
+              %tbody
+                %tr 
+                  %td.text-center.text-primary
+                    = receipt.supplier.name
+                  %td.text-center.text-primary{ style: "width: 20%"} 
+                    = receipt.created_at
+                  %td.text-center.text-primary{ style: "width:20%"}
+                    = receipt.delivery_date
+                  %td.text-center.text-primary{ style: "width: 20%"} 
+                    = "#{receipt.total_price}円"
+          %table.table
+            %tr.pull-right
+              %th.text-primary.text-right 合計金額：
+              %th.text-primary
+                = "#{@total_price}円"
+        
+            

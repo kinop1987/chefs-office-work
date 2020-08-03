@@ -6,7 +6,7 @@
         %table.table
           %tr.pull-right
             %th.text-primary.text-right 取引先：
-            %th.text-success= @supplier.email       
+            %th.text-success= @supplier.name      
       .col
         = form_with model:[@user, @order], url: "/users/#{current_user.id}/orders/#{@supplier.id}", local:true do |form|
           = form.hidden_field :supplier_id, value: @supplier.id
@@ -14,7 +14,7 @@
           .col.text-right
             = form.label :納品日：, class: "text-primary "
             = form.date_field :delivery_date, value: @order.delivery_date
-          %table.table.table-bordered{ style: "margin:1%"}
+          %table.table.table-bordered.tbOrder{ style: "margin:1%"}
             %thread
               %tr
                 %th.text-center.text-primary 商品名
@@ -31,7 +31,7 @@
                     %td.text-center.text-primary{ style: "width: 10%"} 
                       = "#{order_detail.unit_price}円"
                     %td.text-center.text-primary{ style: "width:10%"}
-                      = f.text_field :quantity, class: "form-control"
+                      = f.text_field :quantity, class: "form-control quantity"
                     %td.text-center.text-primary{ style: "width: 20%"} 
                       = order_detail.product.unit
                     %td.text-center.text-primary{ style: "width:10%"} 
@@ -41,6 +41,7 @@
                       = f.hidden_field :unit_price, value: order_detail.unit_price
           .col.pull-right
             = form.submit "注文確定",class: "btn btn-info "
+            = link_to "戻る", "/users/#{current_user.id}/orders/new/#{@supplier.id}", class:"btn btn-danger"
           %table.table{ style: "margin:2%"}
             %tr.pull-right{ style: "font-size: 20px"}
               %th.text-primary.text-right 合計金額：

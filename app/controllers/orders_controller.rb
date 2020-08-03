@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_up_supplier ,only: [:new,:create,:confirm]
-  before_action :set_up_user, only: [:index,:new,:confirm]
-  before_action :create_params_order , only: [:create, :confirm]
+  before_action :set_up_user, only: [:index,:new,:confirm,:show, :group]
+  before_action :create_params_order , only: [:create,:confirm]
 
   def index
     @suppliers = Supplier.all
@@ -14,18 +14,23 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if @order.save
-      redirect_to user_orders_path, success: "発注を完了しました"
-    else
-      render :new
-    end
+    @order.save
+    redirect_to user_orders_path, success: "発注を完了しました"
+    @order.create_order_notification_by(current_user)
+
   end
 
   def confirm
+    
   end
 
   def show
-    @order = Order.find_by(id: params[:order_id])
+    @order = Order.find(params[:order_id])
+  end
+
+  def group
+    @orders = @user.orders.where(delivery_date: params[:delivery_date])
+    @count = @orders.count
   end
 
 

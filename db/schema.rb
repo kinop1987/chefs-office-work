@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_31_020914) do
+ActiveRecord::Schema.define(version: 2020_08_03_065543) do
+
+  create_table "browses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "delivery_date"
+    t.integer "user_id"
+    t.integer "supplier_id"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "calculations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -23,11 +32,14 @@ ActiveRecord::Schema.define(version: 2020_07_31_020914) do
     t.integer "cost_rate"
   end
 
-  create_table "carenders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "body"
+  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "start_time"
+    t.date "delivery_time"
+    t.integer "user_id"
+    t.integer "supplier_id"
+    t.integer "order_id"
+    t.integer "confirm_order_id"
   end
 
   create_table "confirm_order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -57,6 +69,16 @@ ActiveRecord::Schema.define(version: 2020_07_31_020914) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "start_time"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "supplier_id"
+    t.integer "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "checked", default: false, null: false
+    t.integer "confirm_order_id"
   end
 
   create_table "order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -91,15 +113,16 @@ ActiveRecord::Schema.define(version: 2020_07_31_020914) do
   create_table "receipts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "confirm_order_id", null: false
     t.integer "total_price", null: false
-    t.date "delivery_time", null: false
+    t.date "delivery_date", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "supplier_id"
   end
 
   create_table "suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", default: ""
-    t.integer "telephone"
+    t.string "telephone", limit: 11
     t.string "pic", default: ""
     t.string "website"
     t.string "email", default: "", null: false

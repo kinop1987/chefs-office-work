@@ -5,9 +5,11 @@
         %table.table
           %tr.pull-right
             %th.text-primary.text-right 取引先：
-            %th.text-success= @order.supplier.email
-            %th.text-primary.text-right 発注日
+            %th.text-success= @order.supplier.name
+            %th.text-primary.text-right 発注日時
             %th.text-success= @order.created_at
+            %th.text-primary.text-right 納品日
+            %th.text-success= @order.delivery_date
       %table.table.table-bordered{ style: "margin:1%"}
         %thread
           %tr

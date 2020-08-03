@@ -4,7 +4,7 @@
       .panel.panel-primary.center-block{ style: "width: 60%"}
         .panel-heading.text-center
           %h2 原価計算
-          = form_with model:[@user, @calculation], local: true do |form|
+          = form_with model:@user, local: true do |form|
             .panel-body{ style: "font-size: 180%"}
               .col.form-group
                 = form.label :今月の売上高：

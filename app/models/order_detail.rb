@@ -9,6 +9,4 @@ class OrderDetail < ApplicationRecord
     self.price = 0
   end
 
-  
-
 end

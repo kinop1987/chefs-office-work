@@ -10,6 +10,12 @@ class UsersController < ApplicationController
     redirect_to root_path, info: "ユーザー情報を編集しました"
   end
 
+  def suppliers
+    @user = User.find_by(id: current_user.id)
+    @suppliers = Supplier.all
+  end
+
+
   private
 
   def user_params

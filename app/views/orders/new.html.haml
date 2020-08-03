@@ -5,7 +5,7 @@
         %table.table
           %tr
             %th.text-primary.text-right 取引先：
-            %th.text-success=@supplier.email
+            %th.text-success=@supplier.name
       .col
         = form_with model:[@user, @order], url: "/users/#{current_user.id}/orders/#{@supplier.id}/confirm", local:true do |form|
           = form.hidden_field :supplier_id, value: @supplier.id
@@ -38,4 +38,5 @@
                         = f.hidden_field :unit_price, value: product.price
           .col.pull-right
             = form.submit "確認",class: "btn btn-info "
+            = link_to "戻る",user_orders_path(current_user.id), class: "btn btn-danger"
           

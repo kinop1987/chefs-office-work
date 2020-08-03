@@ -25,8 +25,11 @@
       .panel.panel-primary
         .panel-heading.text-center
           %h2 受領画面
-        .panel-body
-          %h4.text-center 商品を検品後、伝票を受領してください
+        .panel-body.text-center.text-danger
+          -if @notifications >= 1
+            = "#{@notifications}件の伝票があります。受領してください"
+          -else @notifications == nil
+            伝票はありません
         .panel-footer
           %p.text-right
             = link_to "受領リスト", user_receipts_path(current_user.id), class: "btn btn-primary "

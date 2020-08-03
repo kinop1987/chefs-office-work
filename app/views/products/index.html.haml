@@ -1,8 +1,8 @@
 .container
   .row
     .col
-      %table.table
-        %thread
+      %table.table.text-primary
+        %thread.text-right
           %tr
             %th 商品名
             %th 販売価格(円)
@@ -22,4 +22,4 @@
                 = link_to "削除", supplier_product_path(id: product.id), method: "delete",class:"btn btn-danger"
     .col
       =link_to "新規商品登録", new_supplier_product_path, class: "btn btn-primary"
-      
+ 

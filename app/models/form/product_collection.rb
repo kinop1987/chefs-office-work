@@ -13,7 +13,11 @@ class Form::ProductCollection < Form::Base
 
   def save
     Product.transaction do
-      self.products.map(&:save!)
+      self.products.map do |product|
+        if product.availability == true
+          product.save!
+        end
+      end
     end
       return true
     rescue => e

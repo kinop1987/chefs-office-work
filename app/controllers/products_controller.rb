@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :require_login_supplier
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy, :index]
 
 
   def index
@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @supplier_id = current_supplier.id
+    @supplier = Supplier.find(params[:supplier_id])
     @form = Form::ProductCollection.new
   end
 
@@ -18,11 +18,8 @@ class ProductsController < ApplicationController
 
   def create
     @form = Form::ProductCollection.new(product_collection_params)
-    if @form.save
-      redirect_to supplier_products_path, success: "商品を登録しました。"
-    else
-      render :new 
-    end
+    @form.save
+    redirect_to supplier_products_path,success: "商品を登録しました。"
   end
 
   def edit
@@ -45,13 +42,12 @@ class ProductsController < ApplicationController
 
   def product_collection_params
     params
-      .require(:form_product_collection).permit(products_attributes: [:name, :price, :unit,:availability, :supplier_id])
+      .require(:form_product_collection).permit(products_attributes: [:name, :price, :unit,:availability,:supplier_id])
   end
 
   def require_login_supplier
     unless logged_in_supplier?
-      danger: "ログインしてください"
-      redirect_to  new_supplier_session_path
+      redirect_to  new_supplier_session_path, danger: "ログインしてください"
     end
   end
 

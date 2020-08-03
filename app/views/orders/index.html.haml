@@ -1,9 +1,11 @@
 .container
   .row{ style: "margin: 2%"}
-    .col.panel.panel-primary.center-block{style: "width: 50%"}
-      %ul.nav.nav-tabs.nav-stacked.text-center.text-primary{ style: "padding:2%"}
-        取引先一覧
+    .col
+      .panel.panel-primary.center-block{style: "width: 50%"}
+        .panel-heading.text-center
+          %h2 取引先一覧
+        .panel-body
         - @suppliers.each do |supplier|
-          %li
-            = link_to supplier.email, "/users/#{current_user.id}/orders/new/#{supplier.id}"
+          %h4.text-center= link_to supplier.name, "/users/#{current_user.id}/orders/new/#{supplier.id}"
+  
       

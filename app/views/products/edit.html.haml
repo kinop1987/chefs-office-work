@@ -1,10 +1,19 @@
 .container
-  = form_with model: [@supplier,@product], url: { action: :update }, local: true do |f| 
-    = f.label :商品名
-    = f.text_field :name, class: "form-control "
-    = f.label :商品価格（円）
-    = f.text_field :price, class: "form-control"
-    = f.label :発注単位
-    = f.text_field :unit, class: "form-control"
-    .col{ style: "margin: 1%"}
-      = f.submit "編集する", class: "btn btn-primary" 
+  .row
+    .col-6{ style: "margin: 20px"}
+      .col-12.panel.panel-primary.center-block{ style: "width:50vw" }
+        = form_with model: [@supplier,@product], url: { action: :update }, local: true do |f|
+          %h2.text-center.text-primary
+            商品情報編集
+          .form-group.text-center
+            = f.label :商品名, class: "text-primary"
+            = f.text_field :name, class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :商品単価（円）, class: "text-primary "
+            = f.text_field :price, class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :商品単価（円）, class: "text-primary "
+            = f.text_field :unit, class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.submit " 編集する", class: 'btn btn-primary btn-lg '
+            = link_to "戻る", supplier_products_path(current_supplier.id), class: "btn btn-danger btn-lg"

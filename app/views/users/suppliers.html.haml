@@ -1,0 +1,23 @@
+.container
+  .row
+    %h1.col.text-center.panel.panel-primary.text-primary
+      取引先一覧
+    .col.table-responsive.panel.panel-primary
+      %table.table.table-bordered
+        %thread
+          %tr
+            %th.text-center.text-primary 仕入先
+            %th.text-center.text-primary 電話番号
+            %th.text-center.text-primary ホームページ
+            %th.text-center.text-primary 担当者
+        %tbody
+          - @suppliers.each do |supplier|
+            %tr
+              %td.text-center.text-primary 
+                = supplier.name
+              %td.text-center.text-primary 
+                = supplier.telephone
+              %td.text-center.text-primary 
+                = supplier.website
+              %td.text-center.text-primary 
+                = supplier.pic

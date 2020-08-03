@@ -1,0 +1,22 @@
+.container
+  .row
+    .col
+      = month_calendar do |date| 
+        .col
+          = date.day
+          - if @orders.where(delivery_date: date).count > 0 && @receipts.where(delivery_date: date).count > 0
+            .col.text-center
+              = link_to "注文", "/users/#{current_user.id}/orders/group/#{date.strftime("%Y-%m-%d")}"
+            .col.text-center
+              = link_to "伝票", "/users/#{current_user.id}/receipts/group/#{date.strftime("%Y-%m-%d")}"
+          - elsif @orders.where(delivery_date: date).count > 0 && @receipts.where(delivery_date: date).count == 0
+            .col.text-center
+              = link_to "注文", "/users/#{current_user.id}/orders/group/#{date.strftime("%Y-%m-%d")}"
+          - elsif @orders.where(delivery_date: date).count == 0 && @receipts.where(delivery_date: date).count > 0
+            .col.text-center
+              = link_to "伝票", "/users/#{current_user.id}/receipts/group/#{date.strftime("%Y-%m-%d")}"
+          
+
+         
+
+          

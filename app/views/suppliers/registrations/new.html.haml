@@ -5,18 +5,18 @@
         = form_with model: @supplier, url: supplier_registration_path, local: true do |f|
           = render "devise/shared/error_messages", resource: resource
           %h2.text-center.text-primary
-            SignUp
+            新規登録画面
           .form-group.text-center
-            = f.label :email, class: "text-primary"
+            = f.label :メールアドレス, class: "text-primary"
             = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control center-block", style: "width: 50%"
           .form-group.text-center
-            = f.label :password, class: "text-primary "
+            = f.label :パスワード, class: "text-primary "
             - if @minimum_password_length
               %em
-                (#{@minimum_password_length} characters minimum)
+                (６文字以上)
             = f.password_field :password, autocomplete: "new-password", class: "form-control center-block", style: "width: 50%"
           .form-group.text-center
-            = f.label :password_confirmation, class: "text-primary "
+            = f.label :確認用パスワード, class: "text-primary "
             = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control center-block", style: "width: 50%"
           .form-group.text-center
-            = f.submit "Sign up", class: 'btn btn-primary btn-lg '
+            = f.submit "新規登録", class: 'btn btn-primary btn-lg '

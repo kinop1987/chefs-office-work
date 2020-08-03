@@ -60,3 +60,6 @@ gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem 'simple_calendar', '~> 2.0'
+gem 'rails-i18n', '~> 6.0.0'
+gem 'devise-i18n'
+gem 'devise-bootstrap-views', '~> 1.0'

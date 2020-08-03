@@ -1,0 +1,45 @@
+.container
+  .row
+    .col
+      .col
+        %h2.text-center.text-info.col-6.panel.panel-primary 本日の業務
+        %p.col-6.text-success.text-right
+          = @date_today
+      .panel.panel-primary
+        .panel-heading.text-center
+          %h2 注文確認
+        .panel-body
+          %h4.text-center.text-danger 
+            -if @notifications >= 1
+              = "#{@notifications}件の注文があります"
+            -else @notifications == nil
+              新規の注文はありません
+        .panel-footer
+          %p.text-right
+            = link_to "注文リスト", supplier_confirm_orders_path(current_supplier.id), class: "btn btn-primary "
+      .panel.panel-primary
+        .panel-heading.text-center
+          %h2 お客様情報
+        .panel-body
+          .input-group
+            %span.input-group-addon 名前：  
+            %p.form-control
+              = @supplier.name 
+          .input-group
+            %span.input-group-addon.text-justify メールアドレス：
+            %p.form-control
+              = @supplier.email
+          .input-group
+            %span.input-group-addon 電  話  番  号：
+            %p.form-control
+              = @supplier.telephone
+          .input-group
+            %span.input-group-addon ホームページ：
+            %p.form-control
+              = @supplier.website
+          .input-group
+            %span.input-group-addon 担当者
+            %p.form-control
+              = @supplier.pic
+        .panel-footer.text-right
+          = link_to "編集",edit_supplier_path(current_supplier.id), class:"btn btn-primary"

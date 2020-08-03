@@ -1,0 +1,42 @@
+.container
+  .row
+    .col
+      .col
+        - if @count == 0
+          .col.text-center.text-danger
+            %h3 この日の注文はありません
+        - @orders.each do |order|
+          %table.table
+            %tr.pull-right
+              %th.text-primary.text-right 取引先：
+              %th.text-success= order.supplier.name
+              %th.text-primary.text-right 発注日時
+              %th.text-success= order.created_at
+              %th.text-primary.text-right 納品日
+              %th.text-success= order.delivery_date
+          %table.table.table-bordered{ style: "margin:1%"}
+            %thread
+              %tr
+                %th.text-center.text-primary 商品名
+                %th.text-center.text-primary 単価
+                %th.text-center.text-primary 数量
+                %th.text-center.text-primary 単位 
+                %th.text-center.text-primary 小計
+            %tbody
+              - order.order_details.each do |order_detail|
+                %tr 
+                  %td.text-center.text-primary
+                    = order_detail.product.name
+                  %td.text-center.text-primary{ style: "width: 10%"} 
+                    = "#{order_detail.unit_price}円"
+                  %td.text-center.text-primary{ style: "width:10%"}
+                    = order_detail.quantity
+                  %td.text-center.text-primary{ style: "width: 20%"} 
+                    = order_detail.product.unit
+                  %td.text-center.text-primary{ style: "width:10%"} 
+                    = "#{order_detail.calculate_order_detail_price}円"
+          %table.table
+            %tr.pull-right
+              %th.text-primary.text-right 合計金額：
+              %th.text-primary
+                = "#{order.calculate_order_quantity}円" 

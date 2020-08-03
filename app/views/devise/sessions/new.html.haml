@@ -4,7 +4,7 @@
       .col-12.panel.panel-primary.center-block{ style: "width:50vw" }
         = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-horizontal") do |f|
           %h2.text-center.text-primary
-            Login
+            ユーザーログイン
           .form-group.text-center
             = f.label :email, class: "text-primary"
             = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control center-block", style: "width: 50%"
@@ -16,6 +16,7 @@
               = f.check_box :remember_me
               = f.label :remember_me, class: "text-primary "
           .form-group.text-center
-            = f.submit "Log in", class: 'btn btn-primary btn-lg '
+            = f.submit "ログイン", class: 'btn btn-primary btn-lg '
           .form-group.text-center
             = render "devise/shared/links"
+

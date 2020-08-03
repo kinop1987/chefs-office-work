@@ -3,4 +3,8 @@
     .col
       - if user_signed_in? 
         = render "user_top"
+      - elsif supplier_signed_in?
+        = render "supplier_top"
+      -else
+        = render "top"
         

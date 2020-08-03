@@ -11,4 +11,5 @@
         .form-group.text-center
           = f.submit "登録", class: 'btn btn-primary btn-lg '
           = f.label "音声", class: 'btn btn-warning btn-lg ',id: "btn"
+          = link_to "戻る", user_memos_path(current_user.id), class: "btn btn-danger btn-lg"
 

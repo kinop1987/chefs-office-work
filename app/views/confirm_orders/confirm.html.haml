@@ -6,7 +6,7 @@
         %table.table
           %tr.pull-right
             %th.text-primary.text-right 取引先：
-            %th.text-success= @order.user.email  
+            %th.text-success= @order.user.name 
       .col
         = form_with model:[@supplier, @confirm_order], url: "/suppliers/#{current_supplier.id}/confirm_orders/#{@order.id}", local:true do |form|
           = form.hidden_field :supplier_id, value: current_supplier.id
@@ -43,7 +43,7 @@
                   = f.hidden_field :unit_price, value: confirm.unit_price
                   = f.hidden_field :product_unit, value: confirm.product_unit
           .col.pull-right
-            = form.submit "受注確定",class: "btn btn-info "
+            = form.submit "受注確定",class: "btn btn-info ", id: "confirm-order"
           %table.table{ style: "margin: 2%"}
             %tr.pull-right{ style: "font-size: 20px"}
               %th.text-primary.text-right 合計金額：

@@ -5,14 +5,15 @@
         %table.table
           %tr.pull-right
             %th.text-primary.text-right 取引先：
-            %th.text-success= @confirm_order.supplier.email
+            %th.text-success= @confirm_order.supplier.name
       .col
         = form_with model:[@user, @receipt], url: "/users/#{current_user.id}/receipts/#{@confirm_order.id}", local:true do |form|
           .col.pull-right{ style: "margin:1%"}
             = form.label :納品日：, class: "text-primary "
-            = form.date_field :delivery_time, value: @confirm_order.delivery_date, readonly:true
+            = form.date_field :delivery_date, value: @confirm_order.delivery_date, readonly:true
             = form.hidden_field :total_price, value: @confirm_order.total_price
             = form.hidden_field :confirm_order_id, value: @confirm_order.id
+            = form.hidden_field :supplier_id, value: @confirm_order.supplier.id
           %table.table.table-bordered{ style: "margin:1%"}
             %thread
               %tr
