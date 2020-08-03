@@ -12,36 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2020_08_03_065543) do
 
-  create_table "browses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.date "delivery_date"
-    t.integer "user_id"
-    t.integer "supplier_id"
-    t.integer "quantity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "calculations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "income"
-    t.integer "last_invent"
-    t.integer "this_invent"
-    t.integer "cost"
-    t.integer "cost_rate"
-  end
-
-  create_table "calendars", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.date "delivery_time"
-    t.integer "user_id"
-    t.integer "supplier_id"
-    t.integer "order_id"
-    t.integer "confirm_order_id"
-  end
-
   create_table "confirm_order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "confirm_order_id", null: false
     t.integer "unit_price", null: false
@@ -134,15 +104,6 @@ ActiveRecord::Schema.define(version: 2020_08_03_065543) do
     t.index ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true
   end
 
-  create_table "user_suppliers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "supplier_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["supplier_id"], name: "index_user_suppliers_on_supplier_id"
-    t.index ["user_id"], name: "index_user_suppliers_on_user_id"
-  end
-
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -159,6 +120,4 @@ ActiveRecord::Schema.define(version: 2020_08_03_065543) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "user_suppliers", "suppliers"
-  add_foreign_key "user_suppliers", "users"
 end

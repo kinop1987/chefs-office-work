@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: chefs_office_work_production
-  username: chefs_office_work
-  password: <%= ENV['CHEFS_OFFICE_WORK_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock

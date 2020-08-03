@@ -1,2 +1,0 @@
-class Browse < ApplicationRecord
-end
