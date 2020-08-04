@@ -1,2 +1,0 @@
-module ConfirmOrdersHelper
-end
