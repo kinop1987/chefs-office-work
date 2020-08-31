@@ -7,8 +7,20 @@
           %h2.text-center.text-primary
             新規登録画面
           .form-group.text-center
+            = f.label :企業名, class: "text-primary"
+            = f.text_field :name, class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
             = f.label :メールアドレス, class: "text-primary"
             = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :電話番号, class: "text-primary"
+            = f.text_field :telephone, placeholder: "080-0000-0000", class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :ホームページ, class: "text-primary"
+            = f.text_field :website, class: "form-control center-block", style: "width: 50%"
+          .form-group.text-center
+            = f.label :担当者, class: "text-primary"
+            = f.text_field :pic, class: "form-control center-block", style: "width: 50%"
           .form-group.text-center
             = f.label :パスワード, class: "text-primary "
             - if @minimum_password_length
