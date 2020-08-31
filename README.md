@@ -75,5 +75,4 @@
 `$ rails s`<br>
 :point_right:`http://localhost:3000`
 
-# :page_facing_up: DB設計
 
